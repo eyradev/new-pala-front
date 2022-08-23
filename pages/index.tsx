@@ -83,13 +83,13 @@ export async function getStaticProps() {
           emoji
         }
       }
-    `,
+    `
   });
 
   return {
     props: {
-      countries: data.countries.slice(0, 4),
-    },
+      countries: data.countries.slice(0, 4)
+    }
   };
 }
 export default Home;
