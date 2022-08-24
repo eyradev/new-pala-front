@@ -1,9 +1,14 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
+const serverEndpoint = process.env.NEXT_PUBLIC_SERVER_ENDPOINT;
+
+if (!serverEndpoint)
+  throw new Error('The NEXT_PUBLIC_SERVER_ENDPOINT variable must be defined');
+
 const client = new ApolloClient({
-  uri: 'https://countries.trevorblades.com',
+  uri: serverEndpoint,
   cache: new InMemoryCache(),
-  ssrMode: true
+  ssrMode: false // TODO: check what to do here
 });
 
 export default client;
