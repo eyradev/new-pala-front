@@ -21,8 +21,11 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
+    "camelcase": "off",
     "no-undef": "off",
     "import/prefer-default-export": "off",
+    "require-default-props.md": "off",
+    "react/require-default-props": "off",
     "prettier/prettier": "error",
     "import/extensions": "off",
     "react/jsx-props-no-spreading": "off",
