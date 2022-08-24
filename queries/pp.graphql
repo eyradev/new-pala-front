@@ -1,4 +1,4 @@
-mutation CREATE_USER_ADDRESS(
+mutation createUserAddress(
   $addresL1: String!
   $cityId: ID!
   $description: String

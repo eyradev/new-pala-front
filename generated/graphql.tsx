@@ -6942,18 +6942,18 @@ export type SignUpContent = {
   paragraph3?: Maybe<Scalars['String']>;
 };
 
-export type Create_User_AddressMutationVariables = Exact<{
+export type CreateUserAddressMutationVariables = Exact<{
   addresL1: Scalars['String'];
   cityId: Scalars['ID'];
   description?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type Create_User_AddressMutation = { __typename?: 'Mutation', createUserAddress?: { __typename?: 'Address', id: string } | null };
+export type CreateUserAddressMutation = { __typename?: 'Mutation', createUserAddress?: { __typename?: 'Address', id: string } | null };
 
 
-export const Create_User_AddressDocument = gql`
-    mutation CREATE_USER_ADDRESS($addresL1: String!, $cityId: ID!, $description: String) {
+export const CreateUserAddressDocument = gql`
+    mutation createUserAddress($addresL1: String!, $cityId: ID!, $description: String) {
   createUserAddress(
     addressL1: $addresL1
     cityId: $cityId
@@ -6963,20 +6963,20 @@ export const Create_User_AddressDocument = gql`
   }
 }
     `;
-export type Create_User_AddressMutationFn = Apollo.MutationFunction<Create_User_AddressMutation, Create_User_AddressMutationVariables>;
+export type CreateUserAddressMutationFn = Apollo.MutationFunction<CreateUserAddressMutation, CreateUserAddressMutationVariables>;
 
 /**
- * __useCreate_User_AddressMutation__
+ * __useCreateUserAddressMutation__
  *
- * To run a mutation, you first call `useCreate_User_AddressMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreate_User_AddressMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateUserAddressMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserAddressMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createUserAddressMutation, { data, loading, error }] = useCreate_User_AddressMutation({
+ * const [createUserAddressMutation, { data, loading, error }] = useCreateUserAddressMutation({
  *   variables: {
  *      addresL1: // value for 'addresL1'
  *      cityId: // value for 'cityId'
@@ -6984,10 +6984,10 @@ export type Create_User_AddressMutationFn = Apollo.MutationFunction<Create_User_
  *   },
  * });
  */
-export function useCreate_User_AddressMutation(baseOptions?: Apollo.MutationHookOptions<Create_User_AddressMutation, Create_User_AddressMutationVariables>) {
+export function useCreateUserAddressMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserAddressMutation, CreateUserAddressMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Create_User_AddressMutation, Create_User_AddressMutationVariables>(Create_User_AddressDocument, options);
+        return Apollo.useMutation<CreateUserAddressMutation, CreateUserAddressMutationVariables>(CreateUserAddressDocument, options);
       }
-export type Create_User_AddressMutationHookResult = ReturnType<typeof useCreate_User_AddressMutation>;
-export type Create_User_AddressMutationResult = Apollo.MutationResult<Create_User_AddressMutation>;
-export type Create_User_AddressMutationOptions = Apollo.BaseMutationOptions<Create_User_AddressMutation, Create_User_AddressMutationVariables>;
+export type CreateUserAddressMutationHookResult = ReturnType<typeof useCreateUserAddressMutation>;
+export type CreateUserAddressMutationResult = Apollo.MutationResult<CreateUserAddressMutation>;
+export type CreateUserAddressMutationOptions = Apollo.BaseMutationOptions<CreateUserAddressMutation, CreateUserAddressMutationVariables>;
