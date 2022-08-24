@@ -1,0 +1,6 @@
+query allPreferences {
+  allPreferences: allCategories(where: { type: "PREFERENCE" }, first: 40) {
+    id
+    name
+  }
+}
