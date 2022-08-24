@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint-staged": "lint-staged",
-    "eslint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
-    "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\"",
+    "eslint": "eslint \"src/**/*.+(js|jsx|ts|tsx)\"",
+    "prettier": "prettier --check \"src/**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\"",
     "prepare": "husky install",
     "codegen": "graphql-codegen --config codegen.yml"
   },
