@@ -22,6 +22,7 @@
   "plugins": ["react", "prettier"],
   "rules": {
     "camelcase": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "no-undef": "off",
     "import/prefer-default-export": "off",
     "require-default-props.md": "off",

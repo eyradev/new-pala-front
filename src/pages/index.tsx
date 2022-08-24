@@ -1,10 +1,11 @@
 import { IllnessDropdown } from 'components/navbar/illness-dropdown';
-import type { NextPage } from 'next';
+import StandardLayout from 'layouts/standard/StandardLayout';
 
-const Home: NextPage = () => (
+const Home = () => (
   <>
     <IllnessDropdown />
   </>
 );
 
+Home.Layout = StandardLayout;
 export default Home;
