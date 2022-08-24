@@ -1,9 +1,9 @@
+import { Spinner } from 'components/spinner';
 import { useAllIllnessesQuery } from 'generated/graphql';
 import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Spinner,
   UncontrolledButtonDropdown
 } from 'reactstrap';
 
@@ -24,7 +24,7 @@ export default function IllnessDropdown() {
         Apto Para
       </DropdownToggle>
       <DropdownMenu aria-labelledby="illness-dropdown">
-        {!loading && <Spinner color="primary" />}
+        {!loading && <Spinner color="primary" type="grow" />}
         {data?.allIllnesses?.length &&
           data.allIllnesses.map((illness) => {
             if (!illness?.name) return null;
