@@ -1,11 +1,9 @@
-/* eslint-disable react/prop-types */
 import { gql } from '@apollo/client';
+import client from 'clients/apollo-client';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-// eslint-disable-next-line import/extensions
-import client from '../clients/apollo-client';
-import styles from '../styles/Home.module.css';
+import styles from 'styles/Home.module.css';
 
 const Home: NextPage = ({ countries }: any) => (
   <div className={styles.container}>
@@ -83,13 +81,13 @@ export async function getStaticProps() {
           emoji
         }
       }
-    `,
+    `
   });
 
   return {
     props: {
-      countries: data.countries.slice(0, 4),
-    },
+      countries: data.countries.slice(0, 4)
+    }
   };
 }
 export default Home;
