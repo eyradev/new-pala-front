@@ -6952,6 +6952,11 @@ export type AllPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AllPreferencesQuery = { __typename?: 'Query', allPreferences?: Array<{ __typename?: 'Category', id: string, name?: string | null } | null> | null };
 
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', id: string, name?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, identificationType?: string | null, identification?: string | null, address: Array<{ __typename?: 'Address', id: string, addressL1?: string | null, description?: string | null }>, category: Array<{ __typename?: 'Category', name?: string | null, id: string, type?: string | null }> } | null };
+
 
 export const AllIllnessesDocument = gql`
     query allIllnesses {
@@ -7023,3 +7028,56 @@ export function useAllPreferencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type AllPreferencesQueryHookResult = ReturnType<typeof useAllPreferencesQuery>;
 export type AllPreferencesLazyQueryHookResult = ReturnType<typeof useAllPreferencesLazyQuery>;
 export type AllPreferencesQueryResult = Apollo.QueryResult<AllPreferencesQuery, AllPreferencesQueryVariables>;
+export const CurrentUserDocument = gql`
+    query currentUser {
+  authenticatedItem {
+    ... on User {
+      id
+      name
+      lastName
+      email
+      phone
+      identificationType
+      identification
+      address {
+        id
+        addressL1
+        description
+        id
+      }
+      category {
+        name
+        id
+        type
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(baseOptions?: Apollo.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+      }
+export function useCurrentUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+        }
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
+export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
