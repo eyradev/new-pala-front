@@ -15,6 +15,7 @@ import {
   NavItem,
   Row
 } from 'reactstrap';
+import { CartToggler } from './cart-toggler';
 import { IllnessDropdown } from './illness-dropdown';
 import styles from './Navbar.module.css';
 import { PreferenceDropdown } from './preference-dropdown';
@@ -63,7 +64,7 @@ export default function ANavbar(): JSX.Element {
             <Logo variant={logoVariant} />
           </NavbarBrand>
           <Row style={{ width: '100%' }}>
-            <Col lg="8">
+            <Col xs="11" sm="10" lg="8">
               <SearchBox />
             </Col>
             {isLg && (
@@ -92,6 +93,7 @@ export default function ANavbar(): JSX.Element {
               </Col>
             )}
           </Row>
+          {!isLg && <CartToggler />}
           <button
             type="button"
             onClick={() => {
@@ -121,12 +123,21 @@ export default function ANavbar(): JSX.Element {
                   </p>
                 </NavItem>
               </Col>
-              <Col xs={user ? 8 : 12}>
+              <Col xs={!user ? 8 : 12}>
                 <ProfileDropdown />
               </Col>
-              <Col xs="2">
-                <NavItem>Cart</NavItem>
-              </Col>
+              {!user && isLg && (
+                <Col
+                  xs={4}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start'
+                  }}
+                >
+                  <CartToggler />
+                </Col>
+              )}
             </Row>
           </Nav>
         </Collapse>
