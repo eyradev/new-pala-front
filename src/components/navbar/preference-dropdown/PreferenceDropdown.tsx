@@ -1,5 +1,5 @@
 import { Spinner } from 'components/spinner';
-import { useAllIllnessesQuery } from 'generated/graphql';
+import { useAllPreferencesQuery } from 'generated/graphql';
 import {
   DropdownItem,
   DropdownMenu,
@@ -7,11 +7,11 @@ import {
   UncontrolledButtonDropdown
 } from 'reactstrap';
 
-export default function IllnessDropdown() {
-  const { data, error, loading } = useAllIllnessesQuery();
+export default function PreferenceDropdown() {
+  const { data, error, loading } = useAllPreferencesQuery();
 
   if (error) return null;
-  if (!loading && !data?.allIllnesses?.length) return null;
+  if (!loading && !data?.allPreferences?.length) return null;
   return (
     <UncontrolledButtonDropdown nav>
       <DropdownToggle
@@ -21,14 +21,16 @@ export default function IllnessDropdown() {
         id="illness-dropdown"
         nav
       >
-        Apto Para
+        Categorias
       </DropdownToggle>
       <DropdownMenu aria-labelledby="illness-dropdown">
         {loading && <Spinner color="primary" type="grow" />}
-        {data?.allIllnesses?.length &&
-          data.allIllnesses.map((illness) => {
-            if (!illness?.name) return null;
-            return <DropdownItem key={illness.id}>{illness.name}</DropdownItem>;
+        {data?.allPreferences?.length &&
+          data.allPreferences.map((preference) => {
+            if (!preference?.name) return null;
+            return (
+              <DropdownItem key={preference.id}>{preference.name}</DropdownItem>
+            );
           })}
       </DropdownMenu>
     </UncontrolledButtonDropdown>

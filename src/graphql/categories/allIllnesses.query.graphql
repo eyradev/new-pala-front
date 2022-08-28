@@ -1,0 +1,6 @@
+query allIllnesses {
+  allIllnesses: allCategories(where: { type: "ILLNESS" }, first: 40) {
+    id
+    name
+  }
+}

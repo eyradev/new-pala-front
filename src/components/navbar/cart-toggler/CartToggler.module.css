@@ -1,0 +1,31 @@
+.cart {
+  width: 40px !important;
+  height: 25px !important;
+  padding: 5px !important;
+  border: 1px solid var(--primary);
+  display: flex;
+  color: var(--primary);
+  border-radius: 1rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+}
+
+.cart .logoWrapper {
+  width: 70%;
+  height: 100%;
+  margin-right: 4px;
+  position: relative;
+  top: -2px;
+}
+
+@media (max-width: 575px) {
+  .cart .logoWrapper {
+    top: -3px;
+    padding: 1px;
+  }
+}
+
+.cart:hover {
+  cursor: pointer;
+}

@@ -6942,52 +6942,142 @@ export type SignUpContent = {
   paragraph3?: Maybe<Scalars['String']>;
 };
 
-export type CreateUserAddressMutationVariables = Exact<{
-  addresL1: Scalars['String'];
-  cityId: Scalars['ID'];
-  description?: InputMaybe<Scalars['String']>;
-}>;
+export type AllIllnessesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CreateUserAddressMutation = { __typename?: 'Mutation', createUserAddress?: { __typename?: 'Address', id: string } | null };
+export type AllIllnessesQuery = { __typename?: 'Query', allIllnesses?: Array<{ __typename?: 'Category', id: string, name?: string | null } | null> | null };
+
+export type AllPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export const CreateUserAddressDocument = gql`
-    mutation createUserAddress($addresL1: String!, $cityId: ID!, $description: String) {
-  createUserAddress(
-    addressL1: $addresL1
-    cityId: $cityId
-    description: $description
-  ) {
+export type AllPreferencesQuery = { __typename?: 'Query', allPreferences?: Array<{ __typename?: 'Category', id: string, name?: string | null } | null> | null };
+
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', id: string, name?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, identificationType?: string | null, identification?: string | null, address: Array<{ __typename?: 'Address', id: string, addressL1?: string | null, description?: string | null }>, category: Array<{ __typename?: 'Category', name?: string | null, id: string, type?: string | null }> } | null };
+
+
+export const AllIllnessesDocument = gql`
+    query allIllnesses {
+  allIllnesses: allCategories(where: {type: "ILLNESS"}, first: 40) {
     id
+    name
   }
 }
     `;
-export type CreateUserAddressMutationFn = Apollo.MutationFunction<CreateUserAddressMutation, CreateUserAddressMutationVariables>;
 
 /**
- * __useCreateUserAddressMutation__
+ * __useAllIllnessesQuery__
  *
- * To run a mutation, you first call `useCreateUserAddressMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateUserAddressMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useAllIllnessesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllIllnessesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [createUserAddressMutation, { data, loading, error }] = useCreateUserAddressMutation({
+ * const { data, loading, error } = useAllIllnessesQuery({
  *   variables: {
- *      addresL1: // value for 'addresL1'
- *      cityId: // value for 'cityId'
- *      description: // value for 'description'
  *   },
  * });
  */
-export function useCreateUserAddressMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserAddressMutation, CreateUserAddressMutationVariables>) {
+export function useAllIllnessesQuery(baseOptions?: Apollo.QueryHookOptions<AllIllnessesQuery, AllIllnessesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserAddressMutation, CreateUserAddressMutationVariables>(CreateUserAddressDocument, options);
+        return Apollo.useQuery<AllIllnessesQuery, AllIllnessesQueryVariables>(AllIllnessesDocument, options);
       }
-export type CreateUserAddressMutationHookResult = ReturnType<typeof useCreateUserAddressMutation>;
-export type CreateUserAddressMutationResult = Apollo.MutationResult<CreateUserAddressMutation>;
-export type CreateUserAddressMutationOptions = Apollo.BaseMutationOptions<CreateUserAddressMutation, CreateUserAddressMutationVariables>;
+export function useAllIllnessesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllIllnessesQuery, AllIllnessesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllIllnessesQuery, AllIllnessesQueryVariables>(AllIllnessesDocument, options);
+        }
+export type AllIllnessesQueryHookResult = ReturnType<typeof useAllIllnessesQuery>;
+export type AllIllnessesLazyQueryHookResult = ReturnType<typeof useAllIllnessesLazyQuery>;
+export type AllIllnessesQueryResult = Apollo.QueryResult<AllIllnessesQuery, AllIllnessesQueryVariables>;
+export const AllPreferencesDocument = gql`
+    query allPreferences {
+  allPreferences: allCategories(where: {type: "PREFERENCE"}, first: 40) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useAllPreferencesQuery__
+ *
+ * To run a query within a React component, call `useAllPreferencesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllPreferencesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllPreferencesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllPreferencesQuery(baseOptions?: Apollo.QueryHookOptions<AllPreferencesQuery, AllPreferencesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllPreferencesQuery, AllPreferencesQueryVariables>(AllPreferencesDocument, options);
+      }
+export function useAllPreferencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllPreferencesQuery, AllPreferencesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllPreferencesQuery, AllPreferencesQueryVariables>(AllPreferencesDocument, options);
+        }
+export type AllPreferencesQueryHookResult = ReturnType<typeof useAllPreferencesQuery>;
+export type AllPreferencesLazyQueryHookResult = ReturnType<typeof useAllPreferencesLazyQuery>;
+export type AllPreferencesQueryResult = Apollo.QueryResult<AllPreferencesQuery, AllPreferencesQueryVariables>;
+export const CurrentUserDocument = gql`
+    query currentUser {
+  authenticatedItem {
+    ... on User {
+      id
+      name
+      lastName
+      email
+      phone
+      identificationType
+      identification
+      address {
+        id
+        addressL1
+        description
+        id
+      }
+      category {
+        name
+        id
+        type
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(baseOptions?: Apollo.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+      }
+export function useCurrentUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+        }
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
+export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
