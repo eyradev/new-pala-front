@@ -6941,6 +6941,13 @@ export type SignUpContent = {
   paragraph3?: Maybe<Scalars['String']>;
 };
 
+export type AllIconPreferencesQueryVariables = Exact<{
+  count: Scalars['Int'];
+}>;
+
+
+export type AllIconPreferencesQuery = { __typename?: 'Query', allIconPreferences?: Array<{ __typename?: 'Category', id: string, name?: string | null, color?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null> | null };
+
 export type AllIllnessesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6958,12 +6965,69 @@ export type ContentBySectionQueryVariables = Exact<{
 
 export type ContentBySectionQuery = { __typename?: 'Query', allCustomContents?: Array<{ __typename?: 'CustomContent', id: string, heading1?: string | null, heading2?: string | null, body?: string | null, path?: string | null, image1?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, image2?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null> | null };
 
+export type ProductOffersQueryVariables = Exact<{
+  count: Scalars['Int'];
+}>;
+
+
+export type ProductOffersQuery = { __typename?: 'Query', allProducts?: Array<{ __typename?: 'Product', id: string, name?: string | null, description?: string | null, price?: number | null, salePrice?: number | null, photo: Array<{ __typename?: 'ProductImage', altText?: string | null, image?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, category: Array<{ __typename?: 'Category', id: string, name?: string | null, type?: string | null, color?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, store?: { __typename?: 'Store', id: string, name?: string | null } | null } | null> | null };
+
+export type AllStoresQueryVariables = Exact<{
+  count: Scalars['Int'];
+}>;
+
+
+export type AllStoresQuery = { __typename?: 'Query', allStores?: Array<{ __typename?: 'Store', id: string, name?: string | null, description?: string | null, logo?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, banner?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null> | null };
+
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CurrentUserQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', id: string, name?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, identificationType?: string | null, identification?: string | null, address: Array<{ __typename?: 'Address', id: string, addressL1?: string | null, description?: string | null }>, category: Array<{ __typename?: 'Category', name?: string | null, id: string, type?: string | null }> } | null };
 
 
+export const AllIconPreferencesDocument = gql`
+    query allIconPreferences($count: Int!) {
+  allIconPreferences: allCategories(
+    where: {icon_not: null, type: "PREFERENCE"}
+    first: $count
+  ) {
+    id
+    name
+    color
+    icon {
+      publicUrlTransformed
+    }
+  }
+}
+    `;
+
+/**
+ * __useAllIconPreferencesQuery__
+ *
+ * To run a query within a React component, call `useAllIconPreferencesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllIconPreferencesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllIconPreferencesQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *   },
+ * });
+ */
+export function useAllIconPreferencesQuery(baseOptions: Apollo.QueryHookOptions<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>(AllIconPreferencesDocument, options);
+      }
+export function useAllIconPreferencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>(AllIconPreferencesDocument, options);
+        }
+export type AllIconPreferencesQueryHookResult = ReturnType<typeof useAllIconPreferencesQuery>;
+export type AllIconPreferencesLazyQueryHookResult = ReturnType<typeof useAllIconPreferencesLazyQuery>;
+export type AllIconPreferencesQueryResult = Apollo.QueryResult<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>;
 export const AllIllnessesDocument = gql`
     query allIllnesses {
   allIllnesses: allCategories(where: {type: "ILLNESS"}, first: 40) {
@@ -7081,6 +7145,107 @@ export function useContentBySectionLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type ContentBySectionQueryHookResult = ReturnType<typeof useContentBySectionQuery>;
 export type ContentBySectionLazyQueryHookResult = ReturnType<typeof useContentBySectionLazyQuery>;
 export type ContentBySectionQueryResult = Apollo.QueryResult<ContentBySectionQuery, ContentBySectionQueryVariables>;
+export const ProductOffersDocument = gql`
+    query productOffers($count: Int!) {
+  allProducts(where: {salePrice_not: null, status: "AVAILABLE"}, first: $count) {
+    id
+    name
+    description
+    price
+    salePrice
+    photo {
+      altText
+      image {
+        publicUrlTransformed
+      }
+    }
+    category {
+      id
+      name
+      type
+      color
+      icon {
+        publicUrlTransformed
+      }
+    }
+    store {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useProductOffersQuery__
+ *
+ * To run a query within a React component, call `useProductOffersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductOffersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductOffersQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *   },
+ * });
+ */
+export function useProductOffersQuery(baseOptions: Apollo.QueryHookOptions<ProductOffersQuery, ProductOffersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProductOffersQuery, ProductOffersQueryVariables>(ProductOffersDocument, options);
+      }
+export function useProductOffersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductOffersQuery, ProductOffersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProductOffersQuery, ProductOffersQueryVariables>(ProductOffersDocument, options);
+        }
+export type ProductOffersQueryHookResult = ReturnType<typeof useProductOffersQuery>;
+export type ProductOffersLazyQueryHookResult = ReturnType<typeof useProductOffersLazyQuery>;
+export type ProductOffersQueryResult = Apollo.QueryResult<ProductOffersQuery, ProductOffersQueryVariables>;
+export const AllStoresDocument = gql`
+    query allStores($count: Int!) {
+  allStores(first: $count) {
+    id
+    logo {
+      publicUrlTransformed
+    }
+    banner {
+      publicUrlTransformed
+    }
+    name
+    description
+  }
+}
+    `;
+
+/**
+ * __useAllStoresQuery__
+ *
+ * To run a query within a React component, call `useAllStoresQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllStoresQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllStoresQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *   },
+ * });
+ */
+export function useAllStoresQuery(baseOptions: Apollo.QueryHookOptions<AllStoresQuery, AllStoresQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllStoresQuery, AllStoresQueryVariables>(AllStoresDocument, options);
+      }
+export function useAllStoresLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllStoresQuery, AllStoresQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllStoresQuery, AllStoresQueryVariables>(AllStoresDocument, options);
+        }
+export type AllStoresQueryHookResult = ReturnType<typeof useAllStoresQuery>;
+export type AllStoresLazyQueryHookResult = ReturnType<typeof useAllStoresLazyQuery>;
+export type AllStoresQueryResult = Apollo.QueryResult<AllStoresQuery, AllStoresQueryVariables>;
 export const CurrentUserDocument = gql`
     query currentUser {
   authenticatedItem {
