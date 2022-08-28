@@ -1,0 +1,13 @@
+query allIconPreferences($count: Int!) {
+  allIconPreferences: allCategories(
+    where: { icon_not: null, type: "PREFERENCE" }
+    first: $count
+  ) {
+    id
+    name
+    color
+    icon {
+      publicUrlTransformed
+    }
+  }
+}

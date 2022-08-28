@@ -27,28 +27,19 @@ export default function CategoryIcon({
           backgroundColor: categoryColor
             ? category.color || 'lightgray'
             : undefined,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          width: '100%',
+          height: '100%',
+          position: 'relative'
         }}
         {...divProps}
       >
         {category.icon?.publicUrlTransformed ? (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '65%',
-              height: 'auto'
-            }}
-          >
-            <Image
-              src={category.icon.publicUrlTransformed}
-              alt={category.name || 'categoria'}
-              style={{ width: '100%', height: 'auto' }}
-              layout="fill"
-            />
-          </div>
+          <Image
+            src={category.icon.publicUrlTransformed}
+            alt={category.name || 'categoria'}
+            layout="fill"
+            objectFit="contain"
+          />
         ) : (
           <div style={{ fontSize: '1rem', fontWeight: 'bolder' }}>
             {category.name?.charAt(0)}

@@ -6941,6 +6941,13 @@ export type SignUpContent = {
   paragraph3?: Maybe<Scalars['String']>;
 };
 
+export type AllIconPreferencesQueryVariables = Exact<{
+  count: Scalars['Int'];
+}>;
+
+
+export type AllIconPreferencesQuery = { __typename?: 'Query', allIconPreferences?: Array<{ __typename?: 'Category', id: string, name?: string | null, color?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null> | null };
+
 export type AllIllnessesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6978,6 +6985,49 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 export type CurrentUserQuery = { __typename?: 'Query', authenticatedItem?: { __typename?: 'User', id: string, name?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, identificationType?: string | null, identification?: string | null, address: Array<{ __typename?: 'Address', id: string, addressL1?: string | null, description?: string | null }>, category: Array<{ __typename?: 'Category', name?: string | null, id: string, type?: string | null }> } | null };
 
 
+export const AllIconPreferencesDocument = gql`
+    query allIconPreferences($count: Int!) {
+  allIconPreferences: allCategories(
+    where: {icon_not: null, type: "PREFERENCE"}
+    first: $count
+  ) {
+    id
+    name
+    color
+    icon {
+      publicUrlTransformed
+    }
+  }
+}
+    `;
+
+/**
+ * __useAllIconPreferencesQuery__
+ *
+ * To run a query within a React component, call `useAllIconPreferencesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllIconPreferencesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllIconPreferencesQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *   },
+ * });
+ */
+export function useAllIconPreferencesQuery(baseOptions: Apollo.QueryHookOptions<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>(AllIconPreferencesDocument, options);
+      }
+export function useAllIconPreferencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>(AllIconPreferencesDocument, options);
+        }
+export type AllIconPreferencesQueryHookResult = ReturnType<typeof useAllIconPreferencesQuery>;
+export type AllIconPreferencesLazyQueryHookResult = ReturnType<typeof useAllIconPreferencesLazyQuery>;
+export type AllIconPreferencesQueryResult = Apollo.QueryResult<AllIconPreferencesQuery, AllIconPreferencesQueryVariables>;
 export const AllIllnessesDocument = gql`
     query allIllnesses {
   allIllnesses: allCategories(where: {type: "ILLNESS"}, first: 40) {
