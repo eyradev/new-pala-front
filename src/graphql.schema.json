@@ -19577,18 +19577,6 @@
             "deprecationReason": null
           },
           {
-            "name": "dispatchCart",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "SellOrder",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "endSession",
             "description": null,
             "args": [],

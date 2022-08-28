@@ -1808,7 +1808,6 @@ export type Mutation = {
   deleteWorkWithUsRequest?: Maybe<WorkWithUsRequest>;
   /**  Delete multiple WorkWithUsRequest items by ID.  */
   deleteWorkWithUsRequests?: Maybe<Array<Maybe<WorkWithUsRequest>>>;
-  dispatchCart?: Maybe<SellOrder>;
   endSession: Scalars['Boolean'];
   redeemUserPasswordResetToken?: Maybe<RedeemUserPasswordResetTokenResult>;
   sendUserPasswordResetLink?: Maybe<SendUserPasswordResetLinkResult>;
@@ -6952,6 +6951,13 @@ export type AllPreferencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AllPreferencesQuery = { __typename?: 'Query', allPreferences?: Array<{ __typename?: 'Category', id: string, name?: string | null } | null> | null };
 
+export type ContentBySectionQueryVariables = Exact<{
+  section: Scalars['String'];
+}>;
+
+
+export type ContentBySectionQuery = { __typename?: 'Query', allCustomContents?: Array<{ __typename?: 'CustomContent', id: string, heading1?: string | null, heading2?: string | null, body?: string | null, path?: string | null, image1?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, image2?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null> | null };
+
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7028,6 +7034,53 @@ export function useAllPreferencesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type AllPreferencesQueryHookResult = ReturnType<typeof useAllPreferencesQuery>;
 export type AllPreferencesLazyQueryHookResult = ReturnType<typeof useAllPreferencesLazyQuery>;
 export type AllPreferencesQueryResult = Apollo.QueryResult<AllPreferencesQuery, AllPreferencesQueryVariables>;
+export const ContentBySectionDocument = gql`
+    query contentBySection($section: String!) {
+  allCustomContents(
+    where: {section_some: {name_contains_i: $section}, visible: true}
+  ) {
+    id
+    heading1
+    heading2
+    body
+    path
+    image1 {
+      publicUrlTransformed
+    }
+    image2 {
+      publicUrlTransformed
+    }
+  }
+}
+    `;
+
+/**
+ * __useContentBySectionQuery__
+ *
+ * To run a query within a React component, call `useContentBySectionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContentBySectionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContentBySectionQuery({
+ *   variables: {
+ *      section: // value for 'section'
+ *   },
+ * });
+ */
+export function useContentBySectionQuery(baseOptions: Apollo.QueryHookOptions<ContentBySectionQuery, ContentBySectionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ContentBySectionQuery, ContentBySectionQueryVariables>(ContentBySectionDocument, options);
+      }
+export function useContentBySectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContentBySectionQuery, ContentBySectionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ContentBySectionQuery, ContentBySectionQueryVariables>(ContentBySectionDocument, options);
+        }
+export type ContentBySectionQueryHookResult = ReturnType<typeof useContentBySectionQuery>;
+export type ContentBySectionLazyQueryHookResult = ReturnType<typeof useContentBySectionLazyQuery>;
+export type ContentBySectionQueryResult = Apollo.QueryResult<ContentBySectionQuery, ContentBySectionQueryVariables>;
 export const CurrentUserDocument = gql`
     query currentUser {
   authenticatedItem {
