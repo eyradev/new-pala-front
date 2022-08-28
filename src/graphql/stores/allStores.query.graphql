@@ -1,0 +1,13 @@
+query allStores($count: Int!) {
+  allStores(first: $count) {
+    id
+    logo {
+      publicUrlTransformed
+    }
+    banner {
+      publicUrlTransformed
+    }
+    name
+    description
+  }
+}

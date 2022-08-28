@@ -12,6 +12,7 @@ import {
   Col,
   Row
 } from 'reactstrap';
+import { formatCurrency } from 'util/currency';
 import styles from './ProductCard.module.css';
 import { Star } from './star';
 
@@ -31,6 +32,11 @@ export default function ProductCard({ product, ...cardProps }: Props) {
       ? Math.round(((product.price - product.salePrice) * 100) / product.price)
       : undefined;
 
+  let price = product?.price;
+  if (discount) {
+    price = product?.salePrice;
+  }
+
   if (!photo?.image?.publicUrlTransformed) return null;
 
   return (
@@ -42,7 +48,9 @@ export default function ProductCard({ product, ...cardProps }: Props) {
               alt={photo.altText || '...'}
               src={photo.image?.publicUrlTransformed}
               className={styles.cardImage}
-              layout="fill"
+              layout="responsive"
+              width="100%"
+              height="80px"
             />
           </a>
         </Link>
@@ -88,11 +96,11 @@ export default function ProductCard({ product, ...cardProps }: Props) {
         )}
 
         <div className={styles.footer}>
-          <div className={styles.priceContainer}>
-            <span className="price">
-              ${discount ? product.salePrice : product.price}
-            </span>
-          </div>
+          {price && (
+            <div className={styles.priceContainer}>
+              <span className="price">{formatCurrency(price)}</span>
+            </div>
+          )}
           <Row>
             {product?.category?.slice(0, maxCategoryLength).map((category) => (
               <Col

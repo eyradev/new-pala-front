@@ -13,6 +13,7 @@
 .productCard .card-image {
   height: 200px;
   background-color: white;
+  position: static;
 }
 
 .productCard img {
