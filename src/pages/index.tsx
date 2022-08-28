@@ -1,3 +1,4 @@
+import { ContentBanner } from 'components/content-banner';
 import { ContentCarousel } from 'components/content-carousel';
 import { OfferSection, StoreSection } from 'components/sections';
 import sections from 'constants/sections';
@@ -8,6 +9,7 @@ const Home = () => (
     <ContentCarousel section={sections.homeHeader} />
     <div className="main">
       <OfferSection count={4} />
+      <ContentBanner section={sections.homePromo} />
       <StoreSection count={5} />
     </div>
   </>
