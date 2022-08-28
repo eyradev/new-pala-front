@@ -1,0 +1,31 @@
+query productOffers($count: Int!) {
+  allProducts(
+    where: { salePrice_not: null, status: "AVAILABLE" }
+    first: $count
+  ) {
+    id
+    name
+    description
+    price
+    salePrice
+    photo {
+      altText
+      image {
+        publicUrlTransformed
+      }
+    }
+    category {
+      id
+      name
+      type
+      color
+      icon {
+        publicUrlTransformed
+      }
+    }
+    store {
+      id
+      name
+    }
+  }
+}

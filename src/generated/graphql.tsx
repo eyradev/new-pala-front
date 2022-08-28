@@ -6958,6 +6958,13 @@ export type ContentBySectionQueryVariables = Exact<{
 
 export type ContentBySectionQuery = { __typename?: 'Query', allCustomContents?: Array<{ __typename?: 'CustomContent', id: string, heading1?: string | null, heading2?: string | null, body?: string | null, path?: string | null, image1?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, image2?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null> | null };
 
+export type ProductOffersQueryVariables = Exact<{
+  count: Scalars['Int'];
+}>;
+
+
+export type ProductOffersQuery = { __typename?: 'Query', allProducts?: Array<{ __typename?: 'Product', id: string, name?: string | null, description?: string | null, price?: number | null, salePrice?: number | null, photo: Array<{ __typename?: 'ProductImage', altText?: string | null, image?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, category: Array<{ __typename?: 'Category', id: string, name?: string | null, type?: string | null, color?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, store?: { __typename?: 'Store', id: string, name?: string | null } | null } | null> | null };
+
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7081,6 +7088,64 @@ export function useContentBySectionLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type ContentBySectionQueryHookResult = ReturnType<typeof useContentBySectionQuery>;
 export type ContentBySectionLazyQueryHookResult = ReturnType<typeof useContentBySectionLazyQuery>;
 export type ContentBySectionQueryResult = Apollo.QueryResult<ContentBySectionQuery, ContentBySectionQueryVariables>;
+export const ProductOffersDocument = gql`
+    query productOffers($count: Int!) {
+  allProducts(where: {salePrice_not: null, status: "AVAILABLE"}, first: $count) {
+    id
+    name
+    description
+    price
+    salePrice
+    photo {
+      altText
+      image {
+        publicUrlTransformed
+      }
+    }
+    category {
+      id
+      name
+      type
+      color
+      icon {
+        publicUrlTransformed
+      }
+    }
+    store {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useProductOffersQuery__
+ *
+ * To run a query within a React component, call `useProductOffersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductOffersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductOffersQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *   },
+ * });
+ */
+export function useProductOffersQuery(baseOptions: Apollo.QueryHookOptions<ProductOffersQuery, ProductOffersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProductOffersQuery, ProductOffersQueryVariables>(ProductOffersDocument, options);
+      }
+export function useProductOffersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductOffersQuery, ProductOffersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProductOffersQuery, ProductOffersQueryVariables>(ProductOffersDocument, options);
+        }
+export type ProductOffersQueryHookResult = ReturnType<typeof useProductOffersQuery>;
+export type ProductOffersLazyQueryHookResult = ReturnType<typeof useProductOffersLazyQuery>;
+export type ProductOffersQueryResult = Apollo.QueryResult<ProductOffersQuery, ProductOffersQueryVariables>;
 export const CurrentUserDocument = gql`
     query currentUser {
   authenticatedItem {
