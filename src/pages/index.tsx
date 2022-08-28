@@ -1,9 +1,10 @@
-import { IllnessDropdown } from 'components/navbar/illness-dropdown';
+import { ContentCarousel } from 'components/content-carousel';
+import sections from 'constants/sections';
 import StandardLayout from 'layouts/standard/StandardLayout';
 
 const Home = () => (
   <>
-    <IllnessDropdown />
+    <ContentCarousel section={sections.homeHeader} />
   </>
 );
 
