@@ -15,6 +15,15 @@
   width: 70%;
   height: 100%;
   margin-right: 4px;
+  position: relative;
+  top: -2px;
+}
+
+@media (max-width: 575px) {
+  .cart .logoWrapper {
+    top: -3px;
+    padding: 1px;
+  }
 }
 
 .cart:hover {

@@ -3,7 +3,6 @@ import { LogoProps } from 'components/logo/Logo';
 import { SearchBox } from 'components/search';
 import breakpoints from 'constants/breakpoints';
 import useMediaQuery from 'hooks/useMediaQuery';
-import useUser from 'hooks/useUser';
 import Link from 'next/link';
 import {
   Col,
@@ -26,8 +25,7 @@ export default function ANavbar(): JSX.Element {
   const isSm = useMediaQuery(
     `(min-width:${breakpoints.sm}px) and (max-width:${breakpoints.lg - 1}px)`
   );
-  // const isXs = useMediaQuery(`(max-width:${breakpoints.sm - 1}px`);
-  const user = useUser();
+  const isXs = useMediaQuery(`(max-width:${breakpoints.sm - 1}px`);
 
   let logoWidth = 50;
   let logoVariant: LogoProps['variant'] = 'icon';
@@ -55,6 +53,7 @@ export default function ANavbar(): JSX.Element {
             justifyContent: 'center'
           }}
         >
+          {isXs}
           <NavbarBrand
             style={{
               minHeight: '20px',
@@ -64,8 +63,22 @@ export default function ANavbar(): JSX.Element {
             <Logo variant={logoVariant} />
           </NavbarBrand>
           <Row style={{ width: '100%' }}>
-            <Col xs="11" sm="10" lg="8">
-              <SearchBox />
+            <Col
+              xs="12"
+              sm="10"
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}
+            >
+              <div style={{ width: '100%' }}>
+                <SearchBox />
+              </div>
+
+              <div style={{ padding: '10px' }}>
+                <CartToggler />
+              </div>
             </Col>
             {isLg && (
               <Col xs="12">
@@ -93,7 +106,6 @@ export default function ANavbar(): JSX.Element {
               </Col>
             )}
           </Row>
-          {!isLg && <CartToggler />}
           <button
             type="button"
             onClick={() => {
@@ -123,21 +135,9 @@ export default function ANavbar(): JSX.Element {
                   </p>
                 </NavItem>
               </Col>
-              <Col xs={!user ? 8 : 12}>
+              <Col>
                 <ProfileDropdown />
               </Col>
-              {!user && isLg && (
-                <Col
-                  xs={4}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start'
-                  }}
-                >
-                  <CartToggler />
-                </Col>
-              )}
             </Row>
           </Nav>
         </Collapse>
