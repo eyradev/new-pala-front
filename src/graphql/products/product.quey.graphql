@@ -1,0 +1,48 @@
+query product($productId: ID!) {
+  allProducts(where: { id: $productId, status: "AVAILABLE" }) {
+    id
+    name
+    sku
+    description
+    productionTime
+    video
+    store {
+      id
+      name
+      banner {
+        publicUrlTransformed
+      }
+      video
+    }
+    photo {
+      id
+      image {
+        publicUrlTransformed
+      }
+      altText
+    }
+    review {
+      id
+      user {
+        id
+        name
+      }
+      points
+      comments
+      visible
+    }
+    category {
+      id
+      color
+      name
+      type
+      icon {
+        publicUrlTransformed
+      }
+    }
+    price
+    salePrice
+    calories100gr
+    sodio
+  }
+}
