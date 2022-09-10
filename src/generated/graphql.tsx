@@ -6979,6 +6979,15 @@ export type ProductQueryVariables = Exact<{
 
 export type ProductQuery = { __typename?: 'Query', allProducts?: Array<{ __typename?: 'Product', id: string, name?: string | null, sku?: string | null, description?: string | null, productionTime?: number | null, video?: string | null, price?: number | null, salePrice?: number | null, calories100gr?: number | null, sodio?: number | null, store?: { __typename?: 'Store', id: string, name?: string | null, video?: string | null, banner?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null, photo: Array<{ __typename?: 'ProductImage', id: string, altText?: string | null, image?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, review: Array<{ __typename?: 'Review', id: string, points?: string | null, comments?: string | null, visible?: boolean | null, user?: { __typename?: 'User', id: string, name?: string | null } | null }>, category: Array<{ __typename?: 'Category', id: string, color?: string | null, name?: string | null, type?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }> } | null> | null };
 
+export type AddReviewMutationVariables = Exact<{
+  productId: Scalars['ID'];
+  score: Scalars['Int'];
+  comment: Scalars['String'];
+}>;
+
+
+export type AddReviewMutation = { __typename?: 'Mutation', addReview?: { __typename?: 'Review', id: string } | null };
+
 export type AllStoresQueryVariables = Exact<{
   count: Scalars['Int'];
 }>;
@@ -7288,6 +7297,41 @@ export function useProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pr
 export type ProductQueryHookResult = ReturnType<typeof useProductQuery>;
 export type ProductLazyQueryHookResult = ReturnType<typeof useProductLazyQuery>;
 export type ProductQueryResult = Apollo.QueryResult<ProductQuery, ProductQueryVariables>;
+export const AddReviewDocument = gql`
+    mutation addReview($productId: ID!, $score: Int!, $comment: String!) {
+  addReview(productId: $productId, score: $score, comment: $comment) {
+    id
+  }
+}
+    `;
+export type AddReviewMutationFn = Apollo.MutationFunction<AddReviewMutation, AddReviewMutationVariables>;
+
+/**
+ * __useAddReviewMutation__
+ *
+ * To run a mutation, you first call `useAddReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addReviewMutation, { data, loading, error }] = useAddReviewMutation({
+ *   variables: {
+ *      productId: // value for 'productId'
+ *      score: // value for 'score'
+ *      comment: // value for 'comment'
+ *   },
+ * });
+ */
+export function useAddReviewMutation(baseOptions?: Apollo.MutationHookOptions<AddReviewMutation, AddReviewMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddReviewMutation, AddReviewMutationVariables>(AddReviewDocument, options);
+      }
+export type AddReviewMutationHookResult = ReturnType<typeof useAddReviewMutation>;
+export type AddReviewMutationResult = Apollo.MutationResult<AddReviewMutation>;
+export type AddReviewMutationOptions = Apollo.BaseMutationOptions<AddReviewMutation, AddReviewMutationVariables>;
 export const AllStoresDocument = gql`
     query allStores($count: Int!) {
   allStores(first: $count) {
