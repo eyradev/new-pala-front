@@ -23,6 +23,7 @@ import {
   Input,
   Row
 } from 'reactstrap';
+import { formatCurrency } from 'util/currency';
 import { productStockSchema } from 'validation-schemas/product-stock.validation';
 import styles from './ProductDetails.module.css';
 
@@ -99,9 +100,13 @@ export default function ProductDetails({ product }: Props): JSX.Element {
         <Col className="ml-auto mr-auto" md="6">
           <h2 className="title">
             {product?.name}{' '}
-            {visibleReviews && visibleReviews.length > 0 && (
-              <small style={{ fontWeight: 'lighter' }}>{score}⭐</small>
-            )}
+            {typeof score === 'number' &&
+              visibleReviews &&
+              visibleReviews.length > 0 && (
+                <small style={{ fontWeight: 'lighter' }}>
+                  {Math.round((score + Number.EPSILON) * 100) / 100}⭐
+                </small>
+              )}
           </h2>
           <h5
             className="category"
@@ -125,11 +130,11 @@ export default function ProductDetails({ product }: Props): JSX.Element {
                 textDecoration: product?.salePrice ? 'line-through' : 'none'
               }}
             >
-              ${product?.price}
+              {formatCurrency(product.price)}
             </h2>
             {product?.salePrice && (
               <h2 className="main-price" style={{ fontWeight: 'normal' }}>
-                &nbsp;${product?.salePrice}
+                &nbsp;{formatCurrency(product.salePrice)}
               </h2>
             )}
           </div>
