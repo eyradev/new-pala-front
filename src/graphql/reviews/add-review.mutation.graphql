@@ -1,0 +1,5 @@
+mutation addReview($productId: ID!, $score: Int!, $comment: String!) {
+  addReview(productId: $productId, score: $score, comment: $comment) {
+    id
+  }
+}
