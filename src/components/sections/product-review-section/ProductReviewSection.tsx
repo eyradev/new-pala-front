@@ -1,11 +1,12 @@
 import { ProductReviews } from 'components/product-review';
+import { Spinner } from 'components/spinner';
 import {
+  ProductDocument,
   Review,
   useAddReviewMutation,
   useProductQuery
 } from 'generated/graphql';
 import { ProductReview } from 'models/product-review.model';
-import { Spinner } from 'reactstrap';
 
 interface Props {
   productId: string;
@@ -24,7 +25,13 @@ export default function ProductReviewSection({ productId }: Props) {
         productId,
         comment: productReview.comment,
         score: productReview.score
-      }
+      },
+      refetchQueries: [
+        {
+          query: ProductDocument,
+          variables: { productId }
+        }
+      ]
     });
   };
 

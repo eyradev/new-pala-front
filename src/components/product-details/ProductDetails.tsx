@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { CategoryIcon } from 'components/category-icon';
 import { ProductMediaCarousel } from 'components/product-media-corusel';
@@ -29,9 +30,13 @@ import styles from './ProductDetails.module.css';
 
 interface Props {
   product: Partial<Product>;
+  onLineItemAdd: (productStock: ProductStock) => Promise<void>;
 }
 
-export default function ProductDetails({ product }: Props): JSX.Element {
+export default function ProductDetails({
+  product,
+  onLineItemAdd
+}: Props): JSX.Element {
   const [collapses, setCollapses] = useState([1]);
 
   const changeCollapse = (collapse: number) => {
@@ -49,7 +54,7 @@ export default function ProductDetails({ product }: Props): JSX.Element {
     { resetForm }: FormikHelpers<ProductStock>
   ) => {
     if (product?.id) {
-      // addLineItem(product.id, values.stock);
+      await onLineItemAdd(values);
       resetForm({ values: { stock: 0 } });
     }
   };
