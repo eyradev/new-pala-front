@@ -7,7 +7,10 @@ import {
   useContentBySectionQuery,
   useLoginMutation
 } from 'generated/graphql';
+import useUser from 'hooks/useUser';
 import { UserLogin } from 'models/user-login.mode';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { Card, Col, Container, Row } from 'reactstrap';
 import { LoginSchema } from 'validation-schemas/user-login';
 // import styles from './LoginSection.module.css';
@@ -27,6 +30,14 @@ export default function LoginSection() {
     ]
   });
 
+  const router = useRouter();
+
+  const user = useUser();
+
+  useEffect(() => {
+    if (user?.id) router.push('/');
+  }, [user, router]);
+
   if (loading) return <Spinner />;
   if (error || !data?.allCustomContents?.length) return null;
 
@@ -34,10 +45,11 @@ export default function LoginSection() {
     data.allCustomContents[0]?.image1?.publicUrlTransformed;
   if (!backgroundImage) return null;
 
-  const handleUserLogin = async (user: UserLogin) => {
-    console.log(user);
-    const { data: ee } = await login({ variables: user });
-    console.log(ee);
+  const handleUserLogin = async (userData: UserLogin) => {
+    const { data: authUser } = await login({ variables: userData });
+    if (authUser?.authenticateUserWithPassword) {
+      router.push('/');
+    }
   };
 
   return (
