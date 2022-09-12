@@ -6965,6 +6965,14 @@ export type ContentBySectionQueryVariables = Exact<{
 
 export type ContentBySectionQuery = { __typename?: 'Query', allCustomContents?: Array<{ __typename?: 'CustomContent', id: string, heading1?: string | null, heading2?: string | null, body?: string | null, path?: string | null, image1?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null, image2?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null } | null> | null };
 
+export type AddLineItemMutationVariables = Exact<{
+  productId: Scalars['ID'];
+  quantity: Scalars['Int'];
+}>;
+
+
+export type AddLineItemMutation = { __typename?: 'Mutation', addToCart?: { __typename?: 'LineItem', id: string, quantity?: number | null, product?: { __typename?: 'Product', id: string, name?: string | null } | null } | null };
+
 export type ProductOffersQueryVariables = Exact<{
   count: Scalars['Int'];
 }>;
@@ -7169,6 +7177,45 @@ export function useContentBySectionLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type ContentBySectionQueryHookResult = ReturnType<typeof useContentBySectionQuery>;
 export type ContentBySectionLazyQueryHookResult = ReturnType<typeof useContentBySectionLazyQuery>;
 export type ContentBySectionQueryResult = Apollo.QueryResult<ContentBySectionQuery, ContentBySectionQueryVariables>;
+export const AddLineItemDocument = gql`
+    mutation addLineItem($productId: ID!, $quantity: Int!) {
+  addToCart(productId: $productId, quantity: $quantity) {
+    id
+    product {
+      id
+      name
+    }
+    quantity
+  }
+}
+    `;
+export type AddLineItemMutationFn = Apollo.MutationFunction<AddLineItemMutation, AddLineItemMutationVariables>;
+
+/**
+ * __useAddLineItemMutation__
+ *
+ * To run a mutation, you first call `useAddLineItemMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddLineItemMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addLineItemMutation, { data, loading, error }] = useAddLineItemMutation({
+ *   variables: {
+ *      productId: // value for 'productId'
+ *      quantity: // value for 'quantity'
+ *   },
+ * });
+ */
+export function useAddLineItemMutation(baseOptions?: Apollo.MutationHookOptions<AddLineItemMutation, AddLineItemMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddLineItemMutation, AddLineItemMutationVariables>(AddLineItemDocument, options);
+      }
+export type AddLineItemMutationHookResult = ReturnType<typeof useAddLineItemMutation>;
+export type AddLineItemMutationResult = Apollo.MutationResult<AddLineItemMutation>;
+export type AddLineItemMutationOptions = Apollo.BaseMutationOptions<AddLineItemMutation, AddLineItemMutationVariables>;
 export const ProductOffersDocument = gql`
     query productOffers($count: Int!) {
   allProducts(where: {salePrice_not: null, status: "AVAILABLE"}, first: $count) {

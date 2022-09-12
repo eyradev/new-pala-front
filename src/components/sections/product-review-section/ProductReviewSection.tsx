@@ -1,5 +1,6 @@
 import { ProductReviews } from 'components/product-review';
 import {
+  ProductDocument,
   Review,
   useAddReviewMutation,
   useProductQuery
@@ -24,7 +25,13 @@ export default function ProductReviewSection({ productId }: Props) {
         productId,
         comment: productReview.comment,
         score: productReview.score
-      }
+      },
+      refetchQueries: [
+        {
+          query: ProductDocument,
+          variables: { productId }
+        }
+      ]
     });
   };
 
