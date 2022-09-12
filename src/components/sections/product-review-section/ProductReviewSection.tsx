@@ -1,4 +1,5 @@
 import { ProductReviews } from 'components/product-review';
+import { Spinner } from 'components/spinner';
 import {
   ProductDocument,
   Review,
@@ -6,7 +7,6 @@ import {
   useProductQuery
 } from 'generated/graphql';
 import { ProductReview } from 'models/product-review.model';
-import { Spinner } from 'reactstrap';
 
 interface Props {
   productId: string;

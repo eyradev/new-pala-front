@@ -1,0 +1,34 @@
+query topSimilarProducts($categories: [ID]!, $productId: ID!) {
+  allProducts(
+    where: {
+      category_some: { id_in: $categories }
+      id_not: $productId
+      status: "AVAILABLE"
+    }
+    first: 4
+  ) {
+    id
+    name
+    description
+    price
+    salePrice
+    photo {
+      altText
+      image {
+        publicUrlTransformed
+      }
+    }
+    category {
+      id
+      name
+      color
+      icon {
+        publicUrlTransformed
+      }
+    }
+    store {
+      id
+      name
+    }
+  }
+}
