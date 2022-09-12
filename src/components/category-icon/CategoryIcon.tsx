@@ -29,7 +29,10 @@ export default function CategoryIcon({
             : undefined,
           width: '100%',
           height: '100%',
-          position: 'relative'
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
         {...divProps}
       >
