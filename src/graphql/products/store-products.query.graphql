@@ -1,0 +1,35 @@
+query topStoreProducts($storeId: ID!, $selectedProductId: ID!) {
+  allProducts(
+    where: {
+      id_not: $selectedProductId
+      store: { id: $storeId }
+      status: "AVAILABLE"
+    }
+    first: 4
+  ) {
+    id
+    name
+    description
+    price
+    salePrice
+    photo {
+      altText
+      image {
+        publicUrlTransformed
+      }
+    }
+    category {
+      id
+      name
+      color
+      type
+      icon {
+        publicUrlTransformed
+      }
+    }
+    store {
+      id
+      name
+    }
+  }
+}

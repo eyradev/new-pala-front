@@ -6995,6 +6995,14 @@ export type TopSimilarProductsQueryVariables = Exact<{
 
 export type TopSimilarProductsQuery = { __typename?: 'Query', allProducts?: Array<{ __typename?: 'Product', id: string, name?: string | null, description?: string | null, price?: number | null, salePrice?: number | null, photo: Array<{ __typename?: 'ProductImage', altText?: string | null, image?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, category: Array<{ __typename?: 'Category', id: string, name?: string | null, color?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, store?: { __typename?: 'Store', id: string, name?: string | null } | null } | null> | null };
 
+export type TopStoreProductsQueryVariables = Exact<{
+  storeId: Scalars['ID'];
+  selectedProductId: Scalars['ID'];
+}>;
+
+
+export type TopStoreProductsQuery = { __typename?: 'Query', allProducts?: Array<{ __typename?: 'Product', id: string, name?: string | null, description?: string | null, price?: number | null, salePrice?: number | null, photo: Array<{ __typename?: 'ProductImage', altText?: string | null, image?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, category: Array<{ __typename?: 'Category', id: string, name?: string | null, color?: string | null, type?: string | null, icon?: { __typename?: 'CloudinaryImage_File', publicUrlTransformed?: string | null } | null }>, store?: { __typename?: 'Store', id: string, name?: string | null } | null } | null> | null };
+
 export type AddReviewMutationVariables = Exact<{
   productId: Scalars['ID'];
   score: Scalars['Int'];
@@ -7421,6 +7429,68 @@ export function useTopSimilarProductsLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type TopSimilarProductsQueryHookResult = ReturnType<typeof useTopSimilarProductsQuery>;
 export type TopSimilarProductsLazyQueryHookResult = ReturnType<typeof useTopSimilarProductsLazyQuery>;
 export type TopSimilarProductsQueryResult = Apollo.QueryResult<TopSimilarProductsQuery, TopSimilarProductsQueryVariables>;
+export const TopStoreProductsDocument = gql`
+    query topStoreProducts($storeId: ID!, $selectedProductId: ID!) {
+  allProducts(
+    where: {id_not: $selectedProductId, store: {id: $storeId}, status: "AVAILABLE"}
+    first: 4
+  ) {
+    id
+    name
+    description
+    price
+    salePrice
+    photo {
+      altText
+      image {
+        publicUrlTransformed
+      }
+    }
+    category {
+      id
+      name
+      color
+      type
+      icon {
+        publicUrlTransformed
+      }
+    }
+    store {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useTopStoreProductsQuery__
+ *
+ * To run a query within a React component, call `useTopStoreProductsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTopStoreProductsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTopStoreProductsQuery({
+ *   variables: {
+ *      storeId: // value for 'storeId'
+ *      selectedProductId: // value for 'selectedProductId'
+ *   },
+ * });
+ */
+export function useTopStoreProductsQuery(baseOptions: Apollo.QueryHookOptions<TopStoreProductsQuery, TopStoreProductsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TopStoreProductsQuery, TopStoreProductsQueryVariables>(TopStoreProductsDocument, options);
+      }
+export function useTopStoreProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TopStoreProductsQuery, TopStoreProductsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TopStoreProductsQuery, TopStoreProductsQueryVariables>(TopStoreProductsDocument, options);
+        }
+export type TopStoreProductsQueryHookResult = ReturnType<typeof useTopStoreProductsQuery>;
+export type TopStoreProductsLazyQueryHookResult = ReturnType<typeof useTopStoreProductsLazyQuery>;
+export type TopStoreProductsQueryResult = Apollo.QueryResult<TopStoreProductsQuery, TopStoreProductsQueryVariables>;
 export const AddReviewDocument = gql`
     mutation addReview($productId: ID!, $score: Int!, $comment: String!) {
   addReview(productId: $productId, score: $score, comment: $comment) {
