@@ -1,0 +1,20 @@
+query searchLimits {
+  maxPrice: allProducts(sortBy: price_DESC, first: 1) {
+    price
+  }
+  minPrice: allProducts(sortBy: price_ASC, first: 1) {
+    price
+  }
+  maxCalories: allProducts(sortBy: calories100gr_DESC, first: 1) {
+    calories100gr
+  }
+  minCalories: allProducts(sortBy: calories100gr_ASC, first: 1) {
+    calories100gr
+  }
+  maxSodium: allProducts(sortBy: sodio_DESC, first: 1) {
+    sodio
+  }
+  minSodium: allProducts(sortBy: sodio_ASC, first: 1) {
+    sodio
+  }
+}

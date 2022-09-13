@@ -1,0 +1,33 @@
+query searchProducts(
+  $input: ProductWhereInput
+  $search: String
+  $first: Int
+  $skip: Int
+) {
+  allProducts(where: $input, search: $search, first: $first, skip: $skip) {
+    id
+    name
+    description
+    price
+    salePrice
+    photo {
+      altText
+      image {
+        publicUrlTransformed
+      }
+    }
+    category {
+      id
+      name
+      type
+      color
+      icon {
+        publicUrlTransformed
+      }
+    }
+    store {
+      name
+      id
+    }
+  }
+}
