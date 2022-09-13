@@ -7012,6 +7012,11 @@ export type AddReviewMutationVariables = Exact<{
 
 export type AddReviewMutation = { __typename?: 'Mutation', addReview?: { __typename?: 'Review', id: string } | null };
 
+export type SearchLimitsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SearchLimitsQuery = { __typename?: 'Query', maxPrice?: Array<{ __typename?: 'Product', price?: number | null } | null> | null, minPrice?: Array<{ __typename?: 'Product', price?: number | null } | null> | null, maxCalories?: Array<{ __typename?: 'Product', calories100gr?: number | null } | null> | null, minCalories?: Array<{ __typename?: 'Product', calories100gr?: number | null } | null> | null, maxSodium?: Array<{ __typename?: 'Product', sodio?: number | null } | null> | null, minSodium?: Array<{ __typename?: 'Product', sodio?: number | null } | null> | null };
+
 export type SearchProductsQueryVariables = Exact<{
   input?: InputMaybe<ProductWhereInput>;
   search?: InputMaybe<Scalars['String']>;
@@ -7543,6 +7548,55 @@ export function useAddReviewMutation(baseOptions?: Apollo.MutationHookOptions<Ad
 export type AddReviewMutationHookResult = ReturnType<typeof useAddReviewMutation>;
 export type AddReviewMutationResult = Apollo.MutationResult<AddReviewMutation>;
 export type AddReviewMutationOptions = Apollo.BaseMutationOptions<AddReviewMutation, AddReviewMutationVariables>;
+export const SearchLimitsDocument = gql`
+    query searchLimits {
+  maxPrice: allProducts(sortBy: price_DESC, first: 1) {
+    price
+  }
+  minPrice: allProducts(sortBy: price_ASC, first: 1) {
+    price
+  }
+  maxCalories: allProducts(sortBy: calories100gr_DESC, first: 1) {
+    calories100gr
+  }
+  minCalories: allProducts(sortBy: calories100gr_ASC, first: 1) {
+    calories100gr
+  }
+  maxSodium: allProducts(sortBy: sodio_DESC, first: 1) {
+    sodio
+  }
+  minSodium: allProducts(sortBy: sodio_ASC, first: 1) {
+    sodio
+  }
+}
+    `;
+
+/**
+ * __useSearchLimitsQuery__
+ *
+ * To run a query within a React component, call `useSearchLimitsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchLimitsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchLimitsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSearchLimitsQuery(baseOptions?: Apollo.QueryHookOptions<SearchLimitsQuery, SearchLimitsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchLimitsQuery, SearchLimitsQueryVariables>(SearchLimitsDocument, options);
+      }
+export function useSearchLimitsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchLimitsQuery, SearchLimitsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchLimitsQuery, SearchLimitsQueryVariables>(SearchLimitsDocument, options);
+        }
+export type SearchLimitsQueryHookResult = ReturnType<typeof useSearchLimitsQuery>;
+export type SearchLimitsLazyQueryHookResult = ReturnType<typeof useSearchLimitsLazyQuery>;
+export type SearchLimitsQueryResult = Apollo.QueryResult<SearchLimitsQuery, SearchLimitsQueryVariables>;
 export const SearchProductsDocument = gql`
     query searchProducts($input: ProductWhereInput, $search: String, $first: Int, $skip: Int) {
   allProducts(where: $input, search: $search, first: $first, skip: $skip) {

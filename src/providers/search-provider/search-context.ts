@@ -12,6 +12,9 @@ export interface SearchContextProps {
   price: Limited<number>;
   calories: Limited<number>;
   sodium: Limited<number>;
+  priceLimits: Limited<number>;
+  calorieLimits: Limited<number>;
+  sodiumLimits: Limited<number>;
   getProductsQueryBase: () => Pick<
     SearchProductsQueryVariables,
     'input' | 'search'

@@ -1,5 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import { SearchProductsQueryVariables } from 'generated/graphql';
+import { Spinner } from 'components/spinner';
+import {
+  SearchProductsQueryVariables,
+  useSearchLimitsQuery
+} from 'generated/graphql';
 import { isArray } from 'lodash';
 import { useRouter } from 'next/router';
 import {
@@ -9,7 +13,7 @@ import {
   useEffect,
   useState
 } from 'react';
-import { RecursivePartial } from 'util/commonTypes';
+import { Limited, RecursivePartial } from 'util/commonTypes';
 import { SearchContextProps } from './search-context';
 import { asArray } from './search-util';
 
@@ -17,7 +21,10 @@ interface Props {
   children?: ReactNode;
 }
 
-type SearchVariables = Omit<SearchContextProps, 'getSearchQuery'>;
+export type SearchVariables = Omit<
+  SearchContextProps,
+  'getProductsQueryBase' | 'priceLimits' | 'calorieLimits' | 'sodiumLimits'
+>;
 
 const SearchContext = createContext<RecursivePartial<SearchContextProps>>({});
 
@@ -25,6 +32,8 @@ export const __SearchContext = SearchContext;
 
 export default function SearchProvider({ children }: Props) {
   const router = useRouter();
+
+  const { data, loading, error } = useSearchLimitsQuery();
 
   const [searchVars, setSearchVars] = useState<
     RecursivePartial<SearchVariables>
@@ -151,8 +160,37 @@ export default function SearchProvider({ children }: Props) {
     } as Pick<SearchProductsQueryVariables, 'input' | 'search'>;
   }, [searchVars]);
 
+  if (loading) return <Spinner />;
+  if (error || !data) return null;
+
+  const priceLimits: Partial<Limited<number>> = {};
+  if (data.maxPrice?.length)
+    priceLimits.max = data.maxPrice[0]?.price ?? undefined;
+  if (data.minPrice?.length)
+    priceLimits.min = data.minPrice[0]?.price ?? undefined;
+
+  const calorieLimits: Partial<Limited<number>> = {};
+  if (data.maxCalories?.length)
+    calorieLimits.max = data.maxCalories[0]?.calories100gr ?? undefined;
+  if (data.minCalories?.length)
+    calorieLimits.min = data.minCalories[0]?.calories100gr ?? undefined;
+
+  const sodiumLimits: Partial<Limited<number>> = {};
+  if (data.maxSodium?.length)
+    sodiumLimits.max = data.maxSodium[0]?.sodio ?? undefined;
+  if (data.minSodium?.length)
+    sodiumLimits.min = data.minSodium[0]?.sodio ?? undefined;
+
   return (
-    <SearchContext.Provider value={{ ...searchVars, getProductsQueryBase }}>
+    <SearchContext.Provider
+      value={{
+        ...searchVars,
+        getProductsQueryBase,
+        priceLimits,
+        sodiumLimits,
+        calorieLimits
+      }}
+    >
       {children}
     </SearchContext.Provider>
   );

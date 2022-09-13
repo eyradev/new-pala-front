@@ -7,7 +7,7 @@ const Search = () => {
   return (
     <SearchProvider>
       <SearchFilter />
-      <div>{pp}</div>
+      {pp}
     </SearchProvider>
   );
 };
