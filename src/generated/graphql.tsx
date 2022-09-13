@@ -7012,6 +7012,13 @@ export type AddReviewMutationVariables = Exact<{
 
 export type AddReviewMutation = { __typename?: 'Mutation', addReview?: { __typename?: 'Review', id: string } | null };
 
+export type SearchTitleQueryVariables = Exact<{
+  searchTerm: Scalars['String'];
+}>;
+
+
+export type SearchTitleQuery = { __typename?: 'Query', products?: Array<{ __typename?: 'Product', id: string, name?: string | null } | null> | null, categories?: Array<{ __typename?: 'Category', id: string, name?: string | null } | null> | null, illnesses?: Array<{ __typename?: 'Category', id: string, name?: string | null } | null> | null, stores?: Array<{ __typename?: 'Store', id: string, name?: string | null } | null> | null };
+
 export type AllStoresQueryVariables = Exact<{
   count: Scalars['Int'];
 }>;
@@ -7526,6 +7533,66 @@ export function useAddReviewMutation(baseOptions?: Apollo.MutationHookOptions<Ad
 export type AddReviewMutationHookResult = ReturnType<typeof useAddReviewMutation>;
 export type AddReviewMutationResult = Apollo.MutationResult<AddReviewMutation>;
 export type AddReviewMutationOptions = Apollo.BaseMutationOptions<AddReviewMutation, AddReviewMutationVariables>;
+export const SearchTitleDocument = gql`
+    query searchTitle($searchTerm: String!) {
+  products: allProducts(
+    where: {status: "AVAILABLE", OR: [{name_contains_i: $searchTerm}, {description_contains_i: $searchTerm}]}
+    first: 4
+  ) {
+    id
+    name
+  }
+  categories: allCategories(
+    where: {type: "PREFERENCE", OR: [{name_contains_i: $searchTerm}, {description_contains_i: $searchTerm}]}
+    first: 4
+  ) {
+    id
+    name
+  }
+  illnesses: allCategories(
+    where: {type: "ILLNESS", OR: [{name_contains_i: $searchTerm}, {description_contains_i: $searchTerm}]}
+    first: 4
+  ) {
+    id
+    name
+  }
+  stores: allStores(
+    where: {OR: [{name_contains_i: $searchTerm}, {description_contains_i: $searchTerm}]}
+    first: 4
+  ) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useSearchTitleQuery__
+ *
+ * To run a query within a React component, call `useSearchTitleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchTitleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchTitleQuery({
+ *   variables: {
+ *      searchTerm: // value for 'searchTerm'
+ *   },
+ * });
+ */
+export function useSearchTitleQuery(baseOptions: Apollo.QueryHookOptions<SearchTitleQuery, SearchTitleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchTitleQuery, SearchTitleQueryVariables>(SearchTitleDocument, options);
+      }
+export function useSearchTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchTitleQuery, SearchTitleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchTitleQuery, SearchTitleQueryVariables>(SearchTitleDocument, options);
+        }
+export type SearchTitleQueryHookResult = ReturnType<typeof useSearchTitleQuery>;
+export type SearchTitleLazyQueryHookResult = ReturnType<typeof useSearchTitleLazyQuery>;
+export type SearchTitleQueryResult = Apollo.QueryResult<SearchTitleQuery, SearchTitleQueryVariables>;
 export const AllStoresDocument = gql`
     query allStores($count: Int!) {
   allStores(first: $count) {

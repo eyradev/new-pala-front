@@ -17,6 +17,7 @@
     "@apollo/client": "^3.6.9",
     "beauty-stars": "^1.1.0",
     "deepmerge": "^4.2.2",
+    "downshift": "^6.1.9",
     "formik": "^2.2.9",
     "graphql": "^16.6.0",
     "lodash": "^4.17.21",

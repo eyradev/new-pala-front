@@ -1,0 +1,53 @@
+query searchTitle($searchTerm: String!) {
+  products: allProducts(
+    where: {
+      status: "AVAILABLE"
+      OR: [
+        { name_contains_i: $searchTerm }
+        { description_contains_i: $searchTerm }
+      ]
+    }
+    first: 4
+  ) {
+    id
+    name
+  }
+  categories: allCategories(
+    where: {
+      type: "PREFERENCE"
+      OR: [
+        { name_contains_i: $searchTerm }
+        { description_contains_i: $searchTerm }
+      ]
+    }
+    first: 4
+  ) {
+    id
+    name
+  }
+  illnesses: allCategories(
+    where: {
+      type: "ILLNESS"
+      OR: [
+        { name_contains_i: $searchTerm }
+        { description_contains_i: $searchTerm }
+      ]
+    }
+    first: 4
+  ) {
+    id
+    name
+  }
+  stores: allStores(
+    where: {
+      OR: [
+        { name_contains_i: $searchTerm }
+        { description_contains_i: $searchTerm }
+      ]
+    }
+    first: 4
+  ) {
+    id
+    name
+  }
+}
